@@ -19,7 +19,7 @@ Here are the steps that I have followed to have this pre-configured buildroot wi
 4. In rpi-buildroot/package/openjdk delete the patch openjdk-no-so-jar
 
 5. In rpi-buildroot/package/openjdk/openjdk.mk :
-6
+
     a. In order to avoid linking problems with libffi, add the following lines after OPENJDK_PROJECT :
     export LIBBFFI_CFLAGS=-I/$(HOST_DIR)/usr/x86_64-linux-gnu/include
     export LIBBFFI_CFLAGS=-L/$(HOST_DIR)/usr/x86_64-linux-gnu/sysroot/usr/lib/ -lffi
