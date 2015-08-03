@@ -19,15 +19,20 @@ Here are the steps that I have followed to have this pre-configured buildroot wi
 4. In rpi-buildroot/package/openjdk delete the patch openjdk-no-so-jar
 
 5. In rpi-buildroot/package/openjdk/openjdk.mk :
+6
     a. In order to avoid linking problems with libffi, add the following lines after OPENJDK_PROJECT :
     export LIBBFFI_CFLAGS=-I/$(HOST_DIR)/usr/x86_64-linux-gnu/include
     export LIBBFFI_CFLAGS=-L/$(HOST_DIR)/usr/x86_64-linux-gnu/sysroot/usr/lib/ -lffi
+
     b. To avoid missing headers of X11, in OPENJDK_CONF_OPT, add the following line :
     --disable-headful
+    
     c. In OPENJDK_MAKE_OPT, change "all images pofiles" by "profiles", because we want only the compact profiles of openjdk
     and just after in CONF change "linux-arm-normal-zero-release" by "linux-x86_64-normal-zero-release"
+    
     d. In OPENJDK_DEPENDENCIES, add the following dependencies
     libffi cups freetype xlib_libXrender xlib_libXt xlib_libXext xlib_libXtst libusb
+    
     e. There is three compact run time environment for openjdk,
     On the following website you can see what are these run time environments and choose which one you need : http://openjdk.java.net/jeps/161
     At the end of the file, in OPENJDK_INSTALL_TARGET_CMDS, add the two following lines replacing the X by the 2 compact profiles that you don't need :
